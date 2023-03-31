@@ -31,6 +31,7 @@ namespace StudentAdminPortal.API
 
             services.AddControllers();
 
+            // Configured DbContext using DI from Startup
             services.AddDbContext<StudentAdminContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("StudentAdminPortalDb")));
 
