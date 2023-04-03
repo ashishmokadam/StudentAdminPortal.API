@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 using System.Collections.Generic;
@@ -11,10 +12,12 @@ namespace StudentAdminPortal.API.Controllers
     public class StudentsController : Controller
     {
         private readonly IStudentRepository studentRepository;
+        private readonly IMapper mapper;
 
-        public StudentsController(IStudentRepository studentRepository)
+        public StudentsController(IStudentRepository studentRepository, IMapper mapper)
         {
             this.studentRepository = studentRepository;
+            this.mapper = mapper;
         }
 
         // The route for this action method (for this controller) is the name itself.
@@ -24,36 +27,8 @@ namespace StudentAdminPortal.API.Controllers
         {
             var students = studentRepository.GetStudents().ToList();
 
-            var domainStudentModels = new List<Student>();
-
-            foreach (var student in students)
-            {
-                domainStudentModels.Add(new Student
-                {
-                    Id = student.Id,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    DateOfBirth = student.DateOfBirth,
-                    Email = student.Email,
-                    Mobile = student.Mobile,
-                    ProfileImageUrl = student.ProfileImageUrl,
-                    GenderId = student.GenderId,
-                    Address = new Address
-                    {
-                        Id = student.Id,
-                        PhysicalAddress = student.Address.PhysicalAddress,
-                        PostalAddress = student.Address.PostalAddress
-                    },
-                    Gender = new Gender
-                    {
-                        Id = student.Id,
-                        Description = student.Gender.Description
-                    }
-                });
-            }
-
             // Return this list as Ok object because this is a RESTFul API
-            return Ok(domainStudentModels);
+            return Ok(mapper.Map<List<Student>>(students));
         }
     }
 }

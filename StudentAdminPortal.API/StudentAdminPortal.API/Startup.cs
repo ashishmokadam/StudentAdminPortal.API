@@ -44,6 +44,11 @@ namespace StudentAdminPortal.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StudentAdminPortal.API", Version = "v1" });
             });
+
+            // Inject automapper so that it can read the maps created in profile folder.
+            // When application runs it will go to Startup class and get its assembly name (which is this current application).
+            // It will search for all the profiles (autmapper profiles) which have been inherited from profile class and it will create the maps for us. 
+            services.AddAutoMapper(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
