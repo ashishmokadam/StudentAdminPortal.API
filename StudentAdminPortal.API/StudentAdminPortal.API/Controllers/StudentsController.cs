@@ -4,6 +4,7 @@ using StudentAdminPortal.API.DomainModels;
 using StudentAdminPortal.API.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace StudentAdminPortal.API.Controllers
 {
@@ -23,9 +24,9 @@ namespace StudentAdminPortal.API.Controllers
         // The route for this action method (for this controller) is the name itself.
         [HttpGet]
         [Route("api/GetAllStudents")]
-        public IActionResult GetAllStudents()
+        public async Task<IActionResult> GetAllStudentsAsync()
         {
-            var students = studentRepository.GetStudents().ToList();
+            var students = await studentRepository.GetStudentsAsync();
 
             // Return this list as Ok object because this is a RESTFul API
             return Ok(mapper.Map<List<Student>>(students));
