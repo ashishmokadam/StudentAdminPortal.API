@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using StudentAdminPortal.API.DataModels;
+using StudentAdminPortal.API.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,10 @@ namespace StudentAdminPortal.API
             // Configured DbContext using DI from Startup
             services.AddDbContext<StudentAdminContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("StudentAdminPortalDb")));
+
+            // Whenever I call this IStudentRepository plese give me an implementation of SqlStudentRepository. 
+            // This will basically inject our dependecies inside the services which we can use back in our controller.
+            services.AddScoped<IStudentRepository, SqlStudentRepository>();
 
             services.AddSwaggerGen(c =>
             {
