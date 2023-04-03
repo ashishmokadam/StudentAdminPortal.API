@@ -17,7 +17,7 @@ namespace StudentAdminPortal.API.Controllers
 
         // The route for this action method (for this controller) is the name itself.
         [HttpGet]        
-        [Route("[contoller]")]
+        [Route("api/GetAllStudents")]
         public IActionResult GetAllStudents()
         {
             // Return this list as Ok object because this is a RESTFul API
