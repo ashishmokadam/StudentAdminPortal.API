@@ -23,7 +23,8 @@ namespace StudentAdminPortal.API.Controllers
 
         // The route for this action method (for this controller) is the name itself.
         [HttpGet]
-        [Route("api/GetAllStudents")]
+        //[Route("api/GetAllStudents")]
+        [Route("[controller]")]
         public async Task<IActionResult> GetAllStudentsAsync()
         {
             var students = await studentRepository.GetStudentsAsync();
